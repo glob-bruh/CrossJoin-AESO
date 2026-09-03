@@ -253,13 +253,17 @@ def GetChannelId(user_input: str, client: discord.Client):
 
 def GetCams(user_input: str, cam_specifier: int = 1):
     try:
+        Api511Key = os.getenv("AB_511_KEY")
         headers = {
             "content-type": "application/json"
         }
         return_text = r.get(
-            "https://511.alberta.ca/api/v2/get/cameras?format=json&lang=en",
+            f"https://511.alberta.ca/api/v2/get/cameras?key={Api511Key}&format=json&lang=en",
             headers=headers
         )
+
+        log.info(f"511 CAMS: Return txt: {return_text}")
+
         return_text = json.loads(return_text.content)
         true_list = [z["Location"] for z in return_text]
         true_list_dict = {idx: z for idx, z in enumerate(true_list)}
@@ -278,12 +282,12 @@ def GetCams(user_input: str, cam_specifier: int = 1):
             colour=0x00eaff,
             title=f":red_car: 511 Alberta - {usage['Location']}",
             description=dedent(f'''
-                                    {usage["Views"][0]["Description"]}.
-                                    - Direction: {usage["Direction"]}.
-                                    - Position: {usage["Latitude"]}, {usage["Longitude"]}.
-                                    -# This location has {len(usage["Views"])} camera(s). 
-                                    -# Specify a specific camera with `!CrossJoin cams "[Location]" [1-{len(usage["Views"])}]`.
-                                    '''),
+                {usage["Views"][0]["Description"]}.
+                - Direction: {usage["Direction"]}.
+                - Position: {usage["Latitude"]}, {usage["Longitude"]}.
+                -# This location has {len(usage["Views"])} camera(s). 
+                -# Specify a specific camera with `!CrossJoin cams "[Location]" [1-{len(usage["Views"])}]`.
+            '''),
             type="rich",
             timestamp=dt.datetime.now()
         )

@@ -1,6 +1,8 @@
 services:
   crossjoin:
-    build: .
+    build:
+      context: ./crossjoin
+      dockerfile: Dockerfile
     container_name: CrossJoin_Python_App
     environment:
       - PYTHONUNBUFFERED=1

@@ -8,8 +8,12 @@ This is my first experience using both the discord.py library to make a basic di
 #### Setting up .env:
 - Create `.env` file in project root. 
 - Add the following values to your file:
-  - `AESO_API_KEY`: Required for using AESO API. You can sign-up and get your API key on the [AESO developers portal](https://developer-apim.aeso.ca/).
   - `DISCORD_KEY`: Required to connect with your bot on Discord. You can find this on the [applications section of the Discord developers portal](https://discord.com/developers/applications). 
+  - `AESO_API_KEY`: Required for using AESO API. You can sign-up and get your API key on the [AESO developers portal](https://developer-apim.aeso.ca/).
+  - `AB_511_KEY`: Required for using Alberta 511 API. You can sign-up and request a key by making a [511 account](https://511.alberta.ca/my511/register). For now, all 511 content is best-effort, and has not been tested. 
+  
+> [!WARNING]
+> Alberta 511 key registration is substantially more involved than other services. You will be required to provide an valid email and phone number (you will be asked to confirm them), forced to consent to receiving travel information via SMS (with [opt-out options](https://511.alberta.ca/about/privacy)), and then required to send a text-based reason for accessing the API. You can remove your phone number after registration on the ["my account" page](https://511.alberta.ca/my511/account).
 
 #### Docker (recommended):
 - Run `docker compose --env-file ./.env up`.
@@ -30,6 +34,7 @@ This is my first experience using both the discord.py library to make a basic di
 - [ ] Cleanup UI, further integrate into discords modern bot UI standards.
 - [x] Integrate road reports into the bot if possible through their APIs.
   - [x] 511 Alberta.
+    - [ ] Add option in bot configuration to disable 511 commands in the event that user is unable to acquire dev-key.
     - [x] 511 Cameras.
     - [x] 511 Road conditions.
 
